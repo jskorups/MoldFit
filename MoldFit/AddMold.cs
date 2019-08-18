@@ -15,6 +15,7 @@ namespace MoldFit
         public AddMold()
         {
             InitializeComponent();
+            MessageBox.Show("test");
         }
 
   
