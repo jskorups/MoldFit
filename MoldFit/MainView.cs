@@ -10,11 +10,12 @@ using System.Windows.Forms;
 
 namespace MoldFit
 {
-    public partial class Form1 : Form
+    public partial class MainView : MetroFramework.Forms.MetroForm
     {
-        public Form1()
+        public MainView()
         {
             InitializeComponent();
         }
     }
+       
 }
