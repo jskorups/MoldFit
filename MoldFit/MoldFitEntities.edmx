@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MoldFitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Forma">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WymiarA" Type="nvarchar" MaxLength="50" />
+          <Property Name="WymiarB" Type="nvarchar" MaxLength="50" />
+          <Property Name="WymiarC" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProjektId" Type="int" />
+        </EntityType>
+        <EntityType Name="ProjektTest">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjektNazwa" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Forma_ProjektTest">
+          <End Role="ProjektTest" Type="Self.ProjektTest" Multiplicity="0..1" />
+          <End Role="Forma" Type="Self.Forma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjektTest">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Forma">
+              <PropertyRef Name="ProjektId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MoldFitModelStoreContainer">
+          <EntitySet Name="Forma" EntityType="Self.Forma" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjektTest" EntityType="Self.ProjektTest" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Forma_ProjektTest" Association="Self.FK_Forma_ProjektTest">
+            <End Role="ProjektTest" EntitySet="ProjektTest" />
+            <End Role="Forma" EntitySet="Forma" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MoldFitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Forma">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WymiarA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WymiarB" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WymiarC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProjektId" Type="Int32" />
+          <NavigationProperty Name="ProjektTest" Relationship="Self.FK_Forma_ProjektTest" FromRole="Forma" ToRole="ProjektTest" />
+        </EntityType>
+        <EntityType Name="ProjektTest">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjektNazwa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Forma" Relationship="Self.FK_Forma_ProjektTest" FromRole="ProjektTest" ToRole="Forma" />
+        </EntityType>
+        <Association Name="FK_Forma_ProjektTest">
+          <End Role="ProjektTest" Type="Self.ProjektTest" Multiplicity="0..1" />
+          <End Role="Forma" Type="Self.Forma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjektTest">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Forma">
+              <PropertyRef Name="ProjektId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MoldFitEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Forma" EntityType="Self.Forma" />
+          <EntitySet Name="ProjektTest" EntityType="Self.ProjektTest" />
+          <AssociationSet Name="FK_Forma_ProjektTest" Association="Self.FK_Forma_ProjektTest">
+            <End Role="ProjektTest" EntitySet="ProjektTest" />
+            <End Role="Forma" EntitySet="Forma" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MoldFitModelStoreContainer" CdmEntityContainer="MoldFitEntities">
+          <EntitySetMapping Name="Forma">
+            <EntityTypeMapping TypeName="MoldFitModel.Forma">
+              <MappingFragment StoreEntitySet="Forma">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="WymiarA" ColumnName="WymiarA" />
+                <ScalarProperty Name="WymiarB" ColumnName="WymiarB" />
+                <ScalarProperty Name="WymiarC" ColumnName="WymiarC" />
+                <ScalarProperty Name="ProjektId" ColumnName="ProjektId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjektTest">
+            <EntityTypeMapping TypeName="MoldFitModel.ProjektTest">
+              <MappingFragment StoreEntitySet="ProjektTest">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ProjektNazwa" ColumnName="ProjektNazwa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
